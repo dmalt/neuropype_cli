@@ -4,13 +4,13 @@ def create_main_workflow_power(fif_files):
     from nipype.interfaces.utility import IdentityInterface
     from neuropype_ephy.interfaces.mne.power import Power
     import nipype.interfaces.io as nio
-
+    power_analysis_name = 'test'
     main_workflow = pe.Workflow(name=power_analysis_name)
-    main_workflow.base_dir = main_path
+    main_workflow.base_dir = '/media/dmalt/SSD500/'
 
     data_source = pe.Node(interface=IdentityInterface(fields=['fif_files']), 
                                                      name='data_source')
-    data_source.iterables = [('fif_file', fif_files)] 
+    data_source.iterables = [('fif_files', fif_files)] 
 
     ## Info source
     power_node = pe.Node(interface=Power(), name='pwr')
@@ -18,7 +18,7 @@ def create_main_workflow_power(fif_files):
     power_node.inputs.fmax = 300;
     power_node.inputs.method = 'welch'
 
-    main_workflow.connect(data_source, 'fif_file', power_node, 'epochs_file')
+    main_workflow.connect(data_source, 'fif_files', power_node, 'epochs_file')
     return main_workflow
 
 # def main():
