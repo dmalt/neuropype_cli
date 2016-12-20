@@ -1,7 +1,6 @@
 ''' Command line interface for neuropype_ephy package '''
 import click
 import nipype.pipeline.engine as pe
-from neuropype_ephy.aux_tools import suppress_stdout_stderr
 
 
 @click.group(chain=True)
@@ -12,14 +11,15 @@ from neuropype_ephy.aux_tools import suppress_stdout_stderr
 @click.option('--save-path', '-s', type=click.Path(), default='.', help='path to store results')
 @click.option('--workflow-name', '-w', default='my_workflow',
               help='name of the results directory')
-def cli(ncpu, plugin, save_path, workflow_name):
+@click.option('--verbose', default=True)
+def cli(ncpu, plugin, save_path, workflow_name, verbose):
     """Parallel processing of MEG/EEG data"""
     output_greeting()
 
 
 # ---------------- Connect all the nodes into a workflow -------------------- #
 @cli.resultcallback()
-def process_pipeline(nodes, ncpu, plugin, save_path, workflow_name):
+def process_pipeline(nodes, ncpu, plugin, save_path, workflow_name, verbose):
     """Create main workflow"""
     from nipype import config, logging
 
@@ -52,14 +52,22 @@ def process_pipeline(nodes, ncpu, plugin, save_path, workflow_name):
     click.echo()
     # config.update_config({'logging': {'log_to_file': True}})
     # logging.update_logging(config)
-
-    with suppress_stdout_stderr():
+    if verbose:
         if plugin == 'MultiProc':
             workflow.run(plugin='MultiProc', plugin_args={'n_procs': ncpu})
         elif plugin == 'Linear':
             workflow.run(plugin='Linear')
         elif plugin == 'PBS':
             workflow.run(plugin='PBS')
+    else:
+        from neuropype_ephy.aux_tools import suppress_stdout_stderr
+        with suppress_stdout_stderr():
+            if plugin == 'MultiProc':
+                workflow.run(plugin='MultiProc', plugin_args={'n_procs': ncpu})
+            elif plugin == 'Linear':
+                workflow.run(plugin='Linear')
+            elif plugin == 'PBS':
+                workflow.run(plugin='PBS')
 # -------------------------------------------------------------------------- #
 
 
