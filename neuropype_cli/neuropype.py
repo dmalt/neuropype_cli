@@ -11,7 +11,7 @@ import nipype.pipeline.engine as pe
 @click.option('--save-path', '-s', type=click.Path(), default='.', help='path to store results')
 @click.option('--workflow-name', '-w', default='my_workflow',
               help='name of the results directory')
-@click.option('--verbose', default=True)
+@click.option('--verbose/--no-verbose', default=True)
 def cli(ncpu, plugin, save_path, workflow_name, verbose):
     """Parallel processing of MEG/EEG data"""
     output_greeting()
