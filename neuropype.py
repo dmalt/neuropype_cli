@@ -65,7 +65,7 @@ def process_pipeline(nodes, ncpu, plugin, save_path, workflow_name):
 
 # ------------------------------ Input node -------------------------------- #
 @cli.command('input')
-@click.argument('fif_files', nargs=-1, type=click.Path())
+@click.argument('fif_files', nargs=-1, type=click.Path(exists=True))
 def infosrc(fif_files):
     ''' Create input node '''
     from os.path import abspath, split
