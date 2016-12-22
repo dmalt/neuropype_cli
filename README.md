@@ -6,9 +6,7 @@ Command line interface for neuropype_ephy package
 # Installation
 ---------------
 ## Requirements
-
-python2 - this requirement is temporary and is caused by neuropype_ephy package which is
-not python3 compatible for now
+For now CLI works only with python2; python3 compatibility is planned for later releases
 
 Click
 
