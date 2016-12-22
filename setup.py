@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='neuropype_cli',
-    version='0.1.1',
+    version='0.1.2',
     author='Dmitrii Altukhov',
     author_email='dm.altukhov@ya.ru',
     description='command line interface for neuropype_ephy',
