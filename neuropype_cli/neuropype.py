@@ -33,7 +33,8 @@ def process_pipeline(nodes, ncpu, plugin, save_path, workflow_name, verbose):
               'pwr': ('epochs_file', 'pwr_file'),
               'sp_conn': ('ts_file', 'conmat_file'),
               'mse': ('ts_file', 'mse_file'),
-              'ica': ('fif_file', 'ica_file')}
+              'ica': ('fif_file', 'ica_file'),
+              'preproc': ('fif_file', 'fif_file')}
 
     workflow.connect(input_node, 'keys', path_node, 'key')
     prev_node = path_node
@@ -190,6 +191,33 @@ def ica(n_components, ecg_ch_name, eog_ch_name):
     ica_node.inputs.eog_ch_name = eog_ch_name
     return ica_node
 # ------------------------------------------------------------------------- #
+
+
+# -------------------------- Preproc node --------------------------------- #
+@cli.command('preproc')
+@click.option('--l-freq', '-l', type=click.FLOAT)
+@click.option('--h-freq', '-h', type=click.FLOAT)
+@click.option('--sfreq', '-s', type=click.INT)
+def preproc(l_freq, h_freq, sfreq):
+    """Create preprocessing node
+
+    Filter and downsample of raw .fif data
+
+    """
+    from neuropype_ephy.interfaces.mne.preproc import PreprocFif
+
+    preproc_node = pe.Node(interface=PreprocFif, name='preproc')
+
+    if l_freq:
+        preproc.inputs.l_freq = l_freq
+    if h_freq:
+        preproc.inputs.h_freq = h_freq
+
+    if sfreq:
+        preproc.inputs.sfreq = sfreq
+
+    return preproc_node
+# -------------------------------------------------------------------------- #
 
 
 def map_path(key, iter_mapping):
