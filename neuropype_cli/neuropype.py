@@ -4,14 +4,20 @@ import nipype.pipeline.engine as pe
 
 
 @click.group(chain=True)
-@click.option('--ncpu', '-n', default=1, help='number of CPUs to use')
+@click.option('--ncpu', '-n', default=1, help='number of CPUs to use\
+ takes effect only for MultiProc and PBS plugins')
 @click.option('--plugin', '-p',
               type=click.Choice(['Linear', 'MultiProc', 'PBS']),
+              help='plugin to use; use Linear for single-thread\
+ computation, MultiProc parallel computation on local\
+ machine and PBS to compute on cluster',
               default='MultiProc')
-@click.option('--save-path', '-s', type=click.Path(), default='.', help='path to store results')
+@click.option('--save-path', '-s', type=click.Path(), default='.',
+              help='path to store results')
 @click.option('--workflow-name', '-w', default='my_workflow',
-              help='name of the results directory')
-@click.option('--verbose/--no-verbose', default=True)
+              help='name of destination directory')
+@click.option('--verbose/--no-verbose', default=True,
+              help='verbosity level')
 def cli(ncpu, plugin, save_path, workflow_name, verbose):
     """Parallel processing of MEG/EEG data"""
     output_greeting()
@@ -76,7 +82,18 @@ def process_pipeline(nodes, ncpu, plugin, save_path, workflow_name, verbose):
 @cli.command('input')
 @click.argument('fif_files', nargs=-1, type=click.Path(exists=True))
 def infosrc(fif_files):
-    ''' Create input node '''
+    '''Create input node.
+
+    Use wildcards to run computations on multiple files;
+    To check yourself it's a good idea to run ls command first like this:
+
+
+    $ ls ./*/*.fif 
+
+    $ neuropype input ./*/*.fif
+
+    '''
+
     from os.path import abspath, split
     from os.path import commonprefix as cprfx
     from nipype.interfaces.utility import IdentityInterface, Function
@@ -107,10 +124,23 @@ def infosrc(fif_files):
 
 # --------------------- Power spectral density node ---------------------- #
 @cli.command('psd')
-@click.option('--fmin', default=0., help='lower frequency bound')
-@click.option('--fmax', default=300., help='higher frequency bound')
+@click.option('--fmin', default=0.,
+              help='lower frequency bound; default=0')
+@click.option('--fmax', default=300.,
+              help='higher frequency bound; default=300')
 def psd(fmin, fmax):
-    ''' Create power computation node '''
+    '''Create power computation node.
+    
+    Lower and higher frequency bounds for computation
+    can be changed
+
+    Takes as input epochs in .fif format
+    
+    EXAMPLE:
+
+    $ neuropype pwr input ~/fif_epochs/*/*-epo.fif
+
+    '''
     from neuropype_ephy.interfaces.mne.power import Power
     # click.echo(list(fif_files))
     power = pe.Node(interface=Power(), name='pwr')
