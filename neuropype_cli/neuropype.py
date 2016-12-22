@@ -88,7 +88,7 @@ def infosrc(fif_files):
     To check yourself it's a good idea to run ls command first like this:
 
 
-    $ ls ./*/*.fif 
+    $ ls ./*/*.fif
 
     $ neuropype input ./*/*.fif
 
@@ -130,12 +130,12 @@ def infosrc(fif_files):
               help='higher frequency bound; default=300')
 def psd(fmin, fmax):
     '''Create power computation node.
-    
+
     Lower and higher frequency bounds for computation
     can be changed
 
     Takes as input epochs in .fif format
-    
+
     EXAMPLE:
 
     $ neuropype pwr input ~/fif_epochs/*/*-epo.fif
@@ -193,7 +193,12 @@ def fif_ep_2_ts():
 @click.option('-m', default=2)
 @click.option('-r', default=0.2)
 def multiscale(m, r):
-    """Create multiscale entropy node"""
+    """Create multiscale entropy node
+
+    Experimental functionality.
+    Available only in mse branch of neuropype_ephy
+
+    """
     from neuropype_ephy.mse import get_mse_multiple_sensors
     from nipype.interfaces.utility import Function
     mse = pe.Node(interface=Function(input_names=['ts_file', 'm', 'r'],
@@ -209,7 +214,7 @@ def multiscale(m, r):
 
 # --------------------------- ICA node ------------------------------------ #
 @cli.command('ica')
-@click.option('--n-components', '-n', default=50.)
+@click.option('--n-components', '-n', default=0.95)
 @click.option('--ecg-ch-name', '-c', type=click.STRING, default='')
 @click.option('--eog-ch-name', '-o', type=click.STRING, default='')
 def ica(n_components, ecg_ch_name, eog_ch_name):
@@ -230,7 +235,8 @@ def ica(n_components, ecg_ch_name, eog_ch_name):
 @click.option('--ds_freq', '-d', type=click.INT,
               help='downsampling frequency')
 def preproc(l_freq, h_freq, ds_freq):
-    """Create preprocessing node
+    """Create preprocessing node.
+
 
     Filter and downsample of raw .fif data
 
