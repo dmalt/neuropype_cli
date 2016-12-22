@@ -227,8 +227,9 @@ def ica(n_components, ecg_ch_name, eog_ch_name):
 @cli.command('preproc')
 @click.option('--l-freq', '-l', type=click.FLOAT)
 @click.option('--h-freq', '-h', type=click.FLOAT)
-@click.option('--sfreq', '-s', type=click.INT)
-def preproc(l_freq, h_freq, sfreq):
+@click.option('--ds_freq', '-d', type=click.INT,
+              help='downsampling frequency')
+def preproc(l_freq, h_freq, ds_freq):
     """Create preprocessing node
 
     Filter and downsample of raw .fif data
@@ -236,15 +237,15 @@ def preproc(l_freq, h_freq, sfreq):
     """
     from neuropype_ephy.interfaces.mne.preproc import PreprocFif
 
-    preproc_node = pe.Node(interface=PreprocFif, name='preproc')
+    preproc_node = pe.Node(interface=PreprocFif(), name='preproc')
 
     if l_freq:
-        preproc.inputs.l_freq = l_freq
+        preproc_node.inputs.l_freq = l_freq
     if h_freq:
-        preproc.inputs.h_freq = h_freq
+        preproc_node.inputs.h_freq = h_freq
 
-    if sfreq:
-        preproc.inputs.sfreq = sfreq
+    if ds_freq:
+        preproc_node.inputs.down_sfreq = ds_freq
 
     return preproc_node
 # -------------------------------------------------------------------------- #
