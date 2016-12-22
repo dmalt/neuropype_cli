@@ -27,13 +27,16 @@ $ conda install scikit-learn
 Or if you have installed anaconda distribution these packages are already included 
 
 ## Install package
-*  Install neuropype_ephy
+--------------------
+Install neuropype_ephy
+----------------------
 ```bash
 $ git clone https://github.com/dmalt/neuropype_ephy.git
 $ cd neuropype_ephy
 $ pip install .
 ```
-* Install neuropype_cli
+Install neuropype_cli
+-------------------
 ```bash
 $ git clone https://github.com/dmalt/neuropype_cli.git
 $ cd neuropype_cli
