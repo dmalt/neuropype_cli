@@ -1,10 +1,9 @@
 # Description
----------------
 
 Command line interface for neuropype_ephy package
 
 # Installation
----------------
+
 ## Requirements
 For now CLI works only with python2; python3 compatibility is planned for later releases
 
