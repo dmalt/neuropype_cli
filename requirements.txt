@@ -1,0 +1,1 @@
+-e git+https://github.com/dmalt/neuropype_ephy#egg=neuropype_ephy-0.0.1
