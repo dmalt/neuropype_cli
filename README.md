@@ -38,3 +38,6 @@ $ git clone https://github.com/dmalt/neuropype_cli.git
 $ cd neuropype_cli
 $ pip install .
 ```
+
+[Also check out my presentation on neuropype_cli package](https://github.com/dmalt/neuropype_cli/blob/master/main.pdf)
+
