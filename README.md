@@ -28,15 +28,17 @@ Or if you have installed anaconda distribution these packages are already includ
 ## Install package
 ### Install neuropype_ephy
 ```bash
-$ git clone https://github.com/dmalt/neuropype_ephy.git
-$ cd neuropype_ephy
-$ pip install .
+git clone https://github.com/dmalt/neuropype_ephy.git
+cd neuropype_ephy
+pip install .
+cd ..
+
 ```
 ### Install neuropype_cli
 ```bash
-$ git clone https://github.com/dmalt/neuropype_cli.git
-$ cd neuropype_cli
-$ pip install .
+git clone https://github.com/dmalt/neuropype_cli.git
+cd neuropype_cli
+pip install .
 ```
 
 [Also check out my presentation on neuropype_cli package](https://github.com/dmalt/neuropype_cli/blob/master/main.pdf)
