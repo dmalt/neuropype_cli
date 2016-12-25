@@ -41,7 +41,8 @@ def process_pipeline(nodes, ncpu, plugin, save_path, workflow_name, verbose):
               'mse': ('ts_file', 'mse_file'),
               'ica': ('fif_file', 'ica_file'),
               'preproc': ('fif_file', 'fif_file'),
-              'ds2fif': ('ds_file', 'fif_file')}
+              'ds2fif': ('ds_file', 'fif_file'),
+              'epoch': ('fif_file', 'epo_fif_file')}
 
     workflow.connect(input_node, 'keys', path_node, 'key')
     prev_node = path_node
@@ -272,6 +273,24 @@ def ds2fif():
     ds2fif_node = pe.Node(interface=ConvertDs2Fif(), name='ds2fif')
 
     return ds2fif_node
+# -------------------------------------------------------------------------- #
+
+
+# -------------------------- Create_epochs node --------------------------------- #
+@cli.command('epoch')
+@click.option('--length', '-l', type=click.FLOAT,
+              help='epoch length')
+def epoch(length):
+    """Epoch raw .fif resting state data
+
+    """
+    from neuropype_ephy.interfaces.mne.preproc import CreateEp
+
+    epoch_node = pe.Node(interface=CreateEp(), name='epoch')
+
+    epoch_node.inputs.ep_length = length
+
+    return epoch_node
 # -------------------------------------------------------------------------- #
 
 
