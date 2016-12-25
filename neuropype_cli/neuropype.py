@@ -258,7 +258,7 @@ def preproc(l_freq, h_freq, ds_freq):
 # -------------------------------------------------------------------------- #
 
 
-# -------------------------- Preproc node --------------------------------- #
+# -------------------------- Create_epochs node --------------------------------- #
 @cli.command('epoch')
 @click.option('--length', '-l', type=click.FLOAT,
               help='epoch length')
