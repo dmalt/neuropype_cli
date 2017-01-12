@@ -19,8 +19,8 @@ with conda") and others are installed automatically during neuropype_cli install
 
 ## Install dependencies with conda
 ```bash
-$ conda install numpy
-$ conda install scikit-learn
+conda install numpy
+conda install scikit-learn
 ```
 
 Or if you have installed anaconda distribution these packages are already included 
@@ -39,6 +39,7 @@ cd ..
 git clone https://github.com/dmalt/neuropype_cli.git
 cd neuropype_cli
 pip install .
+cd ..
 ```
 
 [Also check out my presentation on neuropype_cli package](https://github.com/dmalt/neuropype_cli/blob/master/main.pdf)
