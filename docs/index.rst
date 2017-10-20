@@ -11,7 +11,6 @@ Welcome to neuroclick's documentation!
    :caption: Contents:
 
    intro
-   code
    hahaha
 
 
