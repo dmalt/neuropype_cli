@@ -12,6 +12,7 @@ Welcome to neuroclick's documentation!
 
    intro
    code
+   hahaha
 
 
 
