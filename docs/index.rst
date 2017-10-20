@@ -10,8 +10,8 @@ Welcome to neuroclick's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   intro
-   code
+   .. intro
+   .. code
 
 
 
