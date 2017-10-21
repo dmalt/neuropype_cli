@@ -21,15 +21,15 @@ import sys
 sys.path.insert(0, os.path.abspath('../neuropype_cli'))
 
 
-from mock import Mock as MagicMock
+# from mock import Mock as MagicMock
 
-class Mock(MagicMock):  
-    @classmethod
-    def __getattr__(cls, name):
-            return MagicMock()
+# class Mock(MagicMock):  
+#     @classmethod
+#     def __getattr__(cls, name):
+#             return MagicMock()
 
-MOCK_MODULES = ['numpy', 'scipy', 'scipy.linalg', 'scipy.signal']  
-sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+# MOCK_MODULES = ['numpy', 'scipy', 'scipy.linalg', 'scipy.signal']  
+# sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 # -- General configuration ------------------------------------------------
 
@@ -47,7 +47,7 @@ extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax']
 
-autodoc_mock_imports = ['nipype', 'click', 'neuropype_ephy']
+autodoc_mock_imports = ['numpy', 'nipype', 'click', 'neuropype_ephy']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

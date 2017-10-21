@@ -1,0 +1,182 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Autodoc test &#8212; neuroclick 0.1.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Header" href="hahaha.html" />
+    <link rel="prev" title="Introducion" href="intro.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="hahaha.html" title="Header"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introducion"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">neuroclick 0.1.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="autodoc-test">
+<h1>Autodoc test<a class="headerlink" href="#autodoc-test" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="neuropype.cli">
+<code class="descclassname">neuropype.</code><code class="descname">cli</code><span class="sig-paren">(</span><em>ncpu</em>, <em>plugin</em>, <em>save_path</em>, <em>workflow_name</em>, <em>verbose</em><span class="sig-paren">)</span><a class="headerlink" href="#neuropype.cli" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parallel processing of MEG/EEG data</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="neuropype.infosrc">
+<code class="descclassname">neuropype.</code><code class="descname">infosrc</code><span class="sig-paren">(</span><em>fif_files</em><span class="sig-paren">)</span><a class="headerlink" href="#neuropype.infosrc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create input node.</p>
+<p>Use wildcards to run computations on multiple files;
+To check yourself it’s a good idea to run ls command first like this:</p>
+<p>$ ls ./<em>/</em>.fif</p>
+<p>$ neuropype input ./<em>/</em>.fif</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="neuropype.psd">
+<code class="descclassname">neuropype.</code><code class="descname">psd</code><span class="sig-paren">(</span><em>fmin</em>, <em>fmax</em><span class="sig-paren">)</span><a class="headerlink" href="#neuropype.psd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create power computation node.</p>
+<p>Lower and higher frequency bounds for computation
+can be changed</p>
+<p>Takes as input epochs in .fif format</p>
+<p>EXAMPLE:</p>
+<p>$ neuropype pwr input ~/fif_epochs/<em>/</em>-epo.fif</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="neuropype.connectivity">
+<code class="descclassname">neuropype.</code><code class="descname">connectivity</code><span class="sig-paren">(</span><em>band</em>, <em>method</em>, <em>sfreq</em><span class="sig-paren">)</span><a class="headerlink" href="#neuropype.connectivity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create spectral connectivity node</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="neuropype.fif_ep_2_ts">
+<code class="descclassname">neuropype.</code><code class="descname">fif_ep_2_ts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#neuropype.fif_ep_2_ts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a node for epochs 2 npy timeseries conversion</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="neuropype.multiscale">
+<code class="descclassname">neuropype.</code><code class="descname">multiscale</code><span class="sig-paren">(</span><em>m</em>, <em>r</em><span class="sig-paren">)</span><a class="headerlink" href="#neuropype.multiscale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create multiscale entropy node</p>
+<p>Experimental functionality.
+Available only in mse branch of neuropype_ephy</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="neuropype.ica">
+<code class="descclassname">neuropype.</code><code class="descname">ica</code><span class="sig-paren">(</span><em>n_components</em>, <em>ecg_ch_name</em>, <em>eog_ch_name</em><span class="sig-paren">)</span><a class="headerlink" href="#neuropype.ica" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute ica solution for raw fif file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="neuropype.preproc">
+<code class="descclassname">neuropype.</code><code class="descname">preproc</code><span class="sig-paren">(</span><em>l_freq</em>, <em>h_freq</em>, <em>ds_freq</em><span class="sig-paren">)</span><a class="headerlink" href="#neuropype.preproc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create preprocessing node.</p>
+<p>Filter and downsample of raw .fif data</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="neuropype.ds2fif">
+<code class="descclassname">neuropype.</code><code class="descname">ds2fif</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#neuropype.ds2fif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create ds2fif node.</p>
+<p>Convert CTF .ds raw data to .fif format</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="neuropype.epoch">
+<code class="descclassname">neuropype.</code><code class="descname">epoch</code><span class="sig-paren">(</span><em>length</em><span class="sig-paren">)</span><a class="headerlink" href="#neuropype.epoch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Epoch raw .fif resting state data</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="intro.html"
+                        title="previous chapter">Introducion</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="hahaha.html"
+                        title="next chapter">Header</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/code.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="hahaha.html" title="Header"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introducion"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">neuroclick 0.1.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Dmitrii Altukhov.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>
