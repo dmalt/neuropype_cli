@@ -37,6 +37,8 @@ extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax']
 
+autodoc_mock_imports = ['nipype', 'click', 'neuropype_ephy']
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
