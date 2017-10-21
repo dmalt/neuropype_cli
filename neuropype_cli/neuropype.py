@@ -3,28 +3,28 @@ import click
 import nipype.pipeline.engine as pe
 
 
-@click.group(chain=True)
-@click.option('--ncpu', '-n', default=1, help='number of CPUs to use\
- takes effect only for MultiProc and PBS plugins')
-@click.option('--plugin', '-p',
-              type=click.Choice(['Linear', 'MultiProc', 'PBS']),
-              help='plugin to use; use Linear for single-thread\
- computation, MultiProc parallel computation on local\
- machine and PBS to compute on cluster',
-              default='MultiProc')
-@click.option('--save-path', '-s', type=click.Path(), default='.',
-              help='path to store results')
-@click.option('--workflow-name', '-w', default='my_workflow',
-              help='name of destination directory')
-@click.option('--verbose/--no-verbose', default=True,
-              help='verbosity level')
+# @click.group(chain=True)
+# @click.option('--ncpu', '-n', default=1, help='number of CPUs to use\
+#  takes effect only for MultiProc and PBS plugins')
+# @click.option('--plugin', '-p',
+#               type=click.Choice(['Linear', 'MultiProc', 'PBS']),
+#               help='plugin to use; use Linear for single-thread\
+#  computation, MultiProc parallel computation on local\
+#  machine and PBS to compute on cluster',
+#               default='MultiProc')
+# @click.option('--save-path', '-s', type=click.Path(), default='.',
+#               help='path to store results')
+# @click.option('--workflow-name', '-w', default='my_workflow',
+#               help='name of destination directory')
+# @click.option('--verbose/--no-verbose', default=True,
+#               help='verbosity level')
 def cli(ncpu, plugin, save_path, workflow_name, verbose):
     """Parallel processing of MEG/EEG data"""
     output_greeting()
 
 
 # ---------------- Connect all the nodes into a workflow -------------------- #
-@cli.resultcallback()
+# @cli.resultcallback()
 def process_pipeline(nodes, ncpu, plugin, save_path, workflow_name, verbose):
     """Create main workflow"""
     from nipype import config, logging
@@ -81,8 +81,8 @@ def process_pipeline(nodes, ncpu, plugin, save_path, workflow_name, verbose):
 
 
 # ------------------------------ Input node -------------------------------- #
-@cli.command('input')
-@click.argument('fif_files', nargs=-1, type=click.Path(exists=True))
+# @cli.command('input')
+# @click.argument('fif_files', nargs=-1, type=click.Path(exists=True))
 def infosrc(fif_files):
     '''Create input node.
 
@@ -125,11 +125,11 @@ def infosrc(fif_files):
 
 
 # --------------------- Power spectral density node ---------------------- #
-@cli.command('psd')
-@click.option('--fmin', default=0.,
-              help='lower frequency bound; default=0')
-@click.option('--fmax', default=300.,
-              help='higher frequency bound; default=300')
+# @cli.command('psd')
+# @click.option('--fmin', default=0.,
+#               help='lower frequency bound; default=0')
+# @click.option('--fmax', default=300.,
+#               help='higher frequency bound; default=300')
 def psd(fmin, fmax):
     '''Create power computation node.
 
@@ -154,16 +154,16 @@ def psd(fmin, fmax):
 
 
 # --------------------------- Connectivity -------------------------------- #
-@cli.command('conn')
-@click.option('--band', '-b', nargs=2, type=click.Tuple([float, float]),
-              multiple=True, help='frequency band')
-@click.option('--method', '-m', nargs=1,
-              type=click.Choice(["coh", "imcoh", "plv", "pli",
-                                 "wpli", "pli2_unbiased",
-                                 "ppc", "cohy", "wpli2_debiased"]),
-              default=('imcoh',), multiple=True, help='connectivity measure')
-@click.option('--sfreq', '-s', nargs=1, type=click.INT,
-              help='data sampling frequency')
+# @cli.command('conn')
+# @click.option('--band', '-b', nargs=2, type=click.Tuple([float, float]),
+#               multiple=True, help='frequency band')
+# @click.option('--method', '-m', nargs=1,
+#               type=click.Choice(["coh", "imcoh", "plv", "pli",
+#                                  "wpli", "pli2_unbiased",
+#                                  "ppc", "cohy", "wpli2_debiased"]),
+#               default=('imcoh',), multiple=True, help='connectivity measure')
+# @click.option('--sfreq', '-s', nargs=1, type=click.INT,
+#               help='data sampling frequency')
 def connectivity(band, method, sfreq):
     """Create spectral connectivity node"""
     from neuropype_ephy.interfaces.mne.spectral import SpectralConn
@@ -180,7 +180,7 @@ def connectivity(band, method, sfreq):
 
 
 # --------------------- Epochs to timeseries node ------------------------- #
-@cli.command('ep2ts')
+# @cli.command('ep2ts')
 def fif_ep_2_ts():
     ''' Create a node for epochs 2 npy timeseries conversion '''
 
@@ -191,9 +191,9 @@ def fif_ep_2_ts():
 
 
 # -------------------------- Multiscale entropy node ---------------------- #
-@cli.command('mse')
-@click.option('-m', default=2)
-@click.option('-r', default=0.2)
+# @cli.command('mse')
+# @click.option('-m', default=2)
+# @click.option('-r', default=0.2)
 def multiscale(m, r):
     """Create multiscale entropy node
 
@@ -215,10 +215,10 @@ def multiscale(m, r):
 
 
 # --------------------------- ICA node ------------------------------------ #
-@cli.command('ica')
-@click.option('--n-components', '-n', default=0.95)
-@click.option('--ecg-ch-name', '-c', type=click.STRING, default='')
-@click.option('--eog-ch-name', '-o', type=click.STRING, default='')
+# @cli.command('ica')
+# @click.option('--n-components', '-n', default=0.95)
+# @click.option('--ecg-ch-name', '-c', type=click.STRING, default='')
+# @click.option('--eog-ch-name', '-o', type=click.STRING, default='')
 def ica(n_components, ecg_ch_name, eog_ch_name):
     """Compute ica solution for raw fif file"""
     from neuropype_ephy.interfaces.mne.preproc import CompIca
@@ -231,11 +231,11 @@ def ica(n_components, ecg_ch_name, eog_ch_name):
 
 
 # -------------------------- Preproc node --------------------------------- #
-@cli.command('preproc')
-@click.option('--l-freq', '-l', type=click.FLOAT)
-@click.option('--h-freq', '-h', type=click.FLOAT)
-@click.option('--ds_freq', '-d', type=click.INT,
-              help='downsampling frequency')
+# @cli.command('preproc')
+# @click.option('--l-freq', '-l', type=click.FLOAT)
+# @click.option('--h-freq', '-h', type=click.FLOAT)
+# @click.option('--ds_freq', '-d', type=click.INT,
+#               help='downsampling frequency')
 def preproc(l_freq, h_freq, ds_freq):
     """Create preprocessing node.
 
@@ -260,7 +260,7 @@ def preproc(l_freq, h_freq, ds_freq):
 
 
 # -------------------------- DS2FIF node --------------------------------- #
-@cli.command('ds2fif')
+# @cli.command('ds2fif')
 def ds2fif():
     """Create ds2fif node.
 
@@ -277,9 +277,9 @@ def ds2fif():
 
 
 # -------------------------- Create_epochs node --------------------------------- #
-@cli.command('epoch')
-@click.option('--length', '-l', type=click.FLOAT,
-              help='epoch length')
+# @cli.command('epoch')
+# @click.option('--length', '-l', type=click.FLOAT,
+#               help='epoch length')
 def epoch(length):
     """Epoch raw .fif resting state data
 
