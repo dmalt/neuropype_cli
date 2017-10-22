@@ -6,12 +6,12 @@ import nipype.pipeline.engine as pe
 @click.group(chain=True)
 @click.option('--ncpu', '-n', default=1, help='number of CPUs to use\
  takes effect only for MultiProc and PBS plugins')
-# @click.option('--plugin', '-p',
-#               type=click.Choice(['Linear', 'MultiProc', 'PBS']),
-#               help='plugin to use; use Linear for single-thread\
-#  computation, MultiProc parallel computation on local\
-#  machine and PBS to compute on cluster',
-#               default='MultiProc')
+@click.option('--plugin', '-p',
+              type=click.Choice(['Linear', 'MultiProc', 'PBS']),
+              help='plugin to use; use Linear for single-thread\
+ computation, MultiProc parallel computation on local\
+ machine and PBS to compute on cluster',
+              default='MultiProc')
 @click.option('--save-path', '-s', type=click.Path(), default='.',
               help='path to store results')
 @click.option('--workflow-name', '-w', default='my_workflow',
