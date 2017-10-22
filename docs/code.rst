@@ -1,7 +1,6 @@
 Autodoc test
 ===============
 
-.. autofunction:: neuropype.cli
 .. autofunction:: neuropype.infosrc
 .. autofunction:: neuropype.psd
 .. autofunction:: neuropype.connectivity
