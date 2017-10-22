@@ -46,7 +46,7 @@ extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax',
-    'click']
+    'sphinx_click.ext']
 
 # autodoc_mock_imports = ['numpy', 'nipype.pipeline.engine', 'click', 'neuropype_ephy']
 autodoc_mock_imports = ['numpy', 'nipype.pipeline.engine',  'neuropype_ephy']
