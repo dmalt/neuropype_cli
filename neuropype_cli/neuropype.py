@@ -1,4 +1,4 @@
-"""Command line interface for neuropype_ephy package"""
+''' Command line interface for neuropype_ephy package '''
 import click
 import nipype.pipeline.engine as pe
 
@@ -19,34 +19,7 @@ import nipype.pipeline.engine as pe
 @click.option('--verbose/--no-verbose', default=True,
               help='verbosity level')
 def cli(ncpu, plugin, save_path, workflow_name, verbose):
-    """
-    Parallel processing of MEG/EEG data
-
-Description:
-
-    Create and connect nodes to build a data processing pipeline.
-
-    Nodes are connected in the order of execution except for the input
-    node which is always the last (restriction of Click framework which allowes only
-    one command with undefined number of inputs given that this command goes last)
-
-    To make the best use of this tool it's strongly recommended to use wildcards
-    to fetch the files that you want to process.
-
-Examples:
-
-    neuropype -p Linear ds2fif epoch -l 20 ep2ts mse input ./*/Control01_closed*.ds
-
-    This pipeline gets all .ds files that are located in subfolders of the
-    current folder 'input ./s/Control01_closed*.ds',
-    converts them to .fif format [ds2fif], cuts data in epochs of 20 seconds [epoch -l 20],
-    converts -epo.fif files with epochs to .npy format [ep2ts]
-    and computes multiscale entropy on the resulting epochs [mse].
-    All calculations are run sequentially which is governed by
-    -p Linear option
-
-
-    """
+    """Parallel processing of MEG/EEG data"""
     output_greeting()
 
 
@@ -111,7 +84,7 @@ def process_pipeline(nodes, ncpu, plugin, save_path, workflow_name, verbose):
 @cli.command('input')
 @click.argument('fif_files', nargs=-1, type=click.Path(exists=True))
 def infosrc(fif_files):
-    """Get input files
+    '''Create input node.
 
     Use wildcards to run computations on multiple files;
     To check yourself it's a good idea to run ls command first like this:
@@ -121,7 +94,7 @@ def infosrc(fif_files):
 
     $ neuropype input ./*/*.fif
 
-    """
+    '''
 
     from os.path import abspath, split
     from os.path import commonprefix as cprfx
@@ -158,7 +131,7 @@ def infosrc(fif_files):
 @click.option('--fmax', default=300.,
               help='higher frequency bound; default=300')
 def psd(fmin, fmax):
-    """Compute power spectral density
+    '''Create power computation node.
 
     Lower and higher frequency bounds for computation
     can be changed
@@ -169,7 +142,7 @@ def psd(fmin, fmax):
 
     $ neuropype pwr input ~/fif_epochs/*/*-epo.fif
 
-    """
+    '''
     from neuropype_ephy.interfaces.mne.power import Power
     # click.echo(list(fif_files))
     power = pe.Node(interface=Power(), name='pwr')
@@ -192,7 +165,7 @@ def psd(fmin, fmax):
 @click.option('--sfreq', '-s', nargs=1, type=click.INT,
               help='data sampling frequency')
 def connectivity(band, method, sfreq):
-    """Compute spectral connectivity measures"""
+    """Create spectral connectivity node"""
     from neuropype_ephy.interfaces.mne.spectral import SpectralConn
     # if not method:
     #     method = ('imcoh',)
@@ -209,7 +182,7 @@ def connectivity(band, method, sfreq):
 # --------------------- Epochs to timeseries node ------------------------- #
 @cli.command('ep2ts')
 def fif_ep_2_ts():
-    """Convert -epo.fif files to .npy"""
+    ''' Create a node for epochs 2 npy timeseries conversion '''
 
     from neuropype_ephy.nodes.import_data import Ep2ts
     ep2ts = pe.Node(interface=Ep2ts(), name='ep2ts')
@@ -222,7 +195,7 @@ def fif_ep_2_ts():
 @click.option('-m', default=2)
 @click.option('-r', default=0.2)
 def multiscale(m, r):
-    """Compute multiscale entropy
+    """Create multiscale entropy node
 
     Experimental functionality.
     Available only in mse branch of neuropype_ephy
@@ -264,7 +237,7 @@ def ica(n_components, ecg_ch_name, eog_ch_name):
 @click.option('--ds_freq', '-d', type=click.INT,
               help='downsampling frequency')
 def preproc(l_freq, h_freq, ds_freq):
-    """Filter and downsample data
+    """Create preprocessing node.
 
 
     Filter and downsample of raw .fif data
@@ -289,7 +262,12 @@ def preproc(l_freq, h_freq, ds_freq):
 # -------------------------- DS2FIF node --------------------------------- #
 @cli.command('ds2fif')
 def ds2fif():
-    """Convert CTF data in .ds format to .fif"""
+    """Create ds2fif node.
+
+
+    Convert CTF .ds raw data to .fif format
+
+    """
     from neuropype_ephy.nodes.import_data import ConvertDs2Fif
 
     ds2fif_node = pe.Node(interface=ConvertDs2Fif(), name='ds2fif')
@@ -303,7 +281,9 @@ def ds2fif():
 @click.option('--length', '-l', type=click.FLOAT,
               help='epoch length')
 def epoch(length):
-    """Perform epoching on raw .fif resting state data"""
+    """Epoch raw .fif resting state data
+
+    """
     from neuropype_ephy.interfaces.mne.preproc import CreateEp
 
     epoch_node = pe.Node(interface=CreateEp(), name='epoch')
@@ -320,7 +300,7 @@ def map_path(key, iter_mapping):
 
 
 def output_greeting():
-    """Print greeting"""
+    """Output greeting"""
 
     click.echo(click.style(r'''
   _  _ ___ _   _ ___  ___  _____   _____ ___
