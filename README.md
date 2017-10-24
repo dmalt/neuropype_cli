@@ -42,5 +42,8 @@ pip install .
 cd ..
 ```
 
-[Also check out my presentation on neuropype_cli package](https://github.com/dmalt/neuropype_cli/blob/master/main.pdf)
+Documentation
+==============
+[For quick ref check out my presentation on neuropype_cli package](https://github.com/dmalt/neuropype_cli/blob/master/main.pdf)
 
+Detailed documentation can be found [here](http://neuropype-cli.readthedocs.io/en/latest/)
