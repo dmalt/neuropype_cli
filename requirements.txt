@@ -45,4 +45,4 @@ sphinxcontrib-websupport==1.0.1
 subprocess32==3.2.7
 traits==4.6.0
 typing==3.6.2
-urllib3==1.22
+urllib3==1.26.5
