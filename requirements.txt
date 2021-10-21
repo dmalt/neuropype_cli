@@ -1,6 +1,6 @@
 -e git+https://github.com/dmalt/neuropype_ephy#egg=neuropype_ephy-0.0.1
 alabaster==0.7.10
-Babel==2.5.1
+Babel==2.9.1
 backports.functools-lru-cache==1.4
 certifi==2017.7.27.1
 chardet==3.0.4
