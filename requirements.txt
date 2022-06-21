@@ -23,7 +23,7 @@ mock==2.0.0
 networkx==2.0
 nibabel==2.2.0
 nipype==0.13.1
-numpy==1.13.3
+numpy==1.22.0
 pbr==3.1.1
 prov==1.5.1
 py==1.4.34
